@@ -5,7 +5,7 @@ variable "k3s_version" {
 }
 
 variable "k3d_cluster_name" {
-  default = ["petrusin"]
+  default = ["learning"]
   type    = list(string)
 }
 
