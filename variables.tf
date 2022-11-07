@@ -30,7 +30,7 @@ variable "k3d_cluster_lb_port" {
 }
 
 variable "server_count" {
-  default = 1
+  default = 2
   type    = number
 }
 

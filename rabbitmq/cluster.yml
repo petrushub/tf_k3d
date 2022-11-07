@@ -1,0 +1,28 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmq-cluster-test
+spec:
+  replicas: 1
+  override:
+    statefulSet:
+      spec:
+        podManagementPolicy: OrderedReady
+  service:
+    type: ClusterIP
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: In
+              values:
+              - rabbitmq-cluster-test
+        topologyKey: kubernetes.io/hostname
+  rabbitmq:
+    additionalPlugins:
+    - rabbitmq_federation
+    additionalConfig: |
+      disk_free_limit.absolute = 500MB
+      vm_memory_high_watermark.relative = 0.6
